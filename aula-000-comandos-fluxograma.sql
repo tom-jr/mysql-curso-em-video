@@ -204,6 +204,8 @@ Criando chave primaria de pessoas. Conceito de chaave primaria é ter uma coluna
 
     truncate table cursos; --deleta todas os registro da tabela especificada.
 
+    mysql -u root -p  --port 3306 --protocol=tcp < dumb_name              **Comando para importar um dumb pelo mysql_client**
+
     
 
 
