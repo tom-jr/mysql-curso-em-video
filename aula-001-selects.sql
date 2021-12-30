@@ -82,4 +82,48 @@ select avg(cursos.totaulas) from cursos;
 
     #9 - select count(gafanhotos.id) from gafanhotos where gafanhotos.altura > '1.90' and gafanhotos.sexo ='F';
 
-    
+
+
+
+select cursos.carga,count(cursos.idcurso) from cursos group by carga;
+    --faz um count dos idcurso agrupado por carga. O result é o mesmo que o distinct, porem com o group by é possivel realizar um count e saber quantos registro tem os
+    -- valores atribuidos
+
+select cursos.carga,cursos.totaulas, count(cursos.idcurso) from cursos where cursos.totaulas = 30 group by carga;
+    -- agrupa pelo atributo carga, onde o total de aulas for igual a 30. e conta quantas ocorrencias de cada grupo de existente de carga.
+
+select cursos.ano, count(cursos.idcurso) from cursos group by ano order by count(cursos.idcurso) desc
+    --  agrupa por ano com a contagem das incidencias de cada grupo ordenando por ordem decrescente da contagem
+
+select cursos.ano, count(cursos.idcurso) from cursos group by ano having count(cursos.idcurso) > 5 order by count(cursos.idcurso) desc
+    --  agrupa por ano com a contagem das incidencias de cada grupo havendo o contador maior que 5 ordenando por ordem decrescente da contagem
+
+select cursos.ano, count(cursos.idcurso) from cursos where totaulas > 30 group by ano having count(cursos.idcurso) > 5 order by count(cursos.idcurso) desc
+    --  agrupa por ano com a contagem das incidencias de cada grupo onde o total de aulas for mair que 30 havendo o contador maior que 5 ordenando por ordem 
+    -- decrescente da contagem
+
+select cursos.carga, count(cursos.idcurso) from cursos where cursos.ano > 2015 group by carga having carga > (select avg(cursos.carga) from cursos);
+    -- agrupa os cursos pelas cargas que tem o ano maior que 2015, pegando a contagem de cada grupo e printando apenas os grupo que tem a carga acima da media de cargas
+    -- de todos os cursos
+
+
+
+
+exercicios
+#1 - lista com as profissões dos gafanhotos e seus respectivos quantitativos.
+#2 - quantos gafanhotos homens e quantos gafanhotos muheres nasceram apos 2005-01-01
+#3 - lista com gafanhotos que nasceram fora do brasil, mostrando o pais de origem e total de pessoas nascida la. So poises que ticverem mais de 3 gafanhotos
+#4 - lista agrupada pela altura dos gafanhotos, mostrando quantos pesam mais do que 100 e que estao acima da media de altura de todos os cadastrados
+
+
+Respostas
+    select gafanhotos.profissao, count(gafanhotos.id) from gafanhotos group by gafanhotos.profissao;
+
+    select gafanhotos.sexo, count(gafanhotos.id) from gafanhotos where gafanhotos.nascimento > '2005-01-01' group by gafanhotos.sexo;
+
+    select gafanhotos.nacionalidade, count(gafanhotos.id) from gafanhotos where gafanhotos.nacionalidade != 'Brasil' 
+    group by gafanhotos.nacionalidade having count(gafanhotos.id) > 3;
+
+    select gafanhotos.altura, count(gafanhotos.id) from gafanhotos where gafanhotos.peso >'100' group by gafanhotos.altura
+    having gafanhotos.altura > (select avg(gafanhotos.altura) from gafanhotos);
+
